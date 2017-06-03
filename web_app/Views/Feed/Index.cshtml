@@ -1,0 +1,24 @@
+﻿@model web_app.ViewModels.PreDbFeedViewModel
+
+<div class="grid-parent">
+    <div class="grid-100 tablet-grid-50 mobile-grid-50">
+        <h1>PreDb Rss Feed</h1>
+    </div>
+    <div class="grid-50 tablet-grid-50 mobile-grid-50">
+        <h1>test</h1>
+    </div>
+        @foreach (var item in Model.FeedItems)
+        {
+            <div class="feed-items grid-100">
+                <div class="item grid-parent">
+                    @*<div class="item grid-50">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </div>
+                    <div class="item grid-50">
+                        @Html.Raw(item.Link)
+                    </div>*@
+                    <a href="@item.Link">@item.Title</a>
+                </div>
+            </div>
+        }
+</div>

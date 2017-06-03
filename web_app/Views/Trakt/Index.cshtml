@@ -1,0 +1,49 @@
+﻿@model web_app.ViewModels.MovieDbSearchViewModel
+
+
+@section UseFullContainerWidth { <!-- Use full width layout --> }
+
+<div class="movie-info-block">
+    <div class="grid-100 title">
+        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
+            <h1>Trakt Index</h1>
+        </div>
+    </div>
+    </div>
+        @if (Model.movieResults != null)
+        {
+            @foreach (var movie in Model.movieResults)
+            {
+                <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 trakt">
+                    <div class="row">
+                        <div class="example-1 card">
+                            <div class="wrapper">
+                                <div class="date">
+                                    <span class="day">@movie.release_date</span>
+                                    <span class="month">@movie.release_date</span>
+                                    <span class="year">@movie.release_date</span>
+                                </div>
+                                <div class="data">
+                                    <div class="content">
+                                        <span class="author">@movie.title</span>
+                                        <h1 class="title"><a href="#">@movie.original_title</a></h1>
+                                        <p class="text">@movie.overview</p>
+                                        <label for="show-menu" class="menu-button"><span></span></label>
+                                    </div>
+                                    <input type="checkbox" id="show-menu" />
+                                    <ul class="menu-content">
+                                        <li>
+                                            <a href="#" class="fa fa-bookmark-o"></a>
+                                        </li>
+                                        <li><a href="#" class="fa fa-heart-o"><span>@movie.vote_count</span></a></li>
+                                        <li><a href="#" class="fa fa-comment-o"><span>@movie.vote_average</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
