@@ -16,11 +16,13 @@ namespace web_app.Gateways
     public class TheMovieDbGateway : ITheMovieDbGateway
     {
         private readonly IOptions<TheMovieDbApiConfiguration> _theMovieDb;
+        private readonly IOptions<UrlConfiguration> _urlConfig;
         private readonly IHttpClientWrap _httpClientWrap;
 
-        public TheMovieDbGateway(IOptions<TheMovieDbApiConfiguration> theMovieDb, IHttpClientWrap httpClientWrap)
+        public TheMovieDbGateway(IOptions<TheMovieDbApiConfiguration> theMovieDb, IOptions<UrlConfiguration> urlCOnfig, IHttpClientWrap httpClientWrap)
         {
             _theMovieDb = theMovieDb;
+            _urlConfig = urlCOnfig;
             _httpClientWrap = httpClientWrap;
         }
 
@@ -32,7 +34,7 @@ namespace web_app.Gateways
                     Status = HttpStatusCode.BadRequest
                 };
 
-            var url = $"{_theMovieDb.Value.ApiBaseUrl}search/movie?api_key={_theMovieDb.Value.ApiKey}&language=en-US&query={movie}&page=1&include_adult=false";
+            var url = $"{_theMovieDb.Value.ApiBaseUrl}{_urlConfig.Value.MovieSearchUrl}?api_key={_theMovieDb.Value.ApiKey}&language=en-US&query={movie}&page=1&include_adult=false";
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var result = await _httpClientWrap.DoRequest<MovieDbSerchResponseRootObject>(request);
 

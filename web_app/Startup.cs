@@ -46,7 +46,7 @@ namespace web_app
             services.AddTransient<IHttpClientWrap>(provider => new HttpClientWrap());
             services.AddTransient<ITraktGateway>(provider => new TraktGateway(provider.GetService<IHttpClientWrapper>()));
             services.AddTransient<IPreDbGateway>(provider => new PreDbGateway());
-            services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IHttpClientWrap>()));
+            services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrap>()));
 
             // Add framework services.
             services.AddMvc();
