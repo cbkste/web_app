@@ -25,19 +25,17 @@ namespace web_app.Controllers
 
         public async Task<IActionResult> Index()
         {
-            _traktGateway.getLastWatched();
+            //_traktGateway.getLastWatched();
             var response = await _TheMovieDbGateway.GetMovieInfo("The Dark Knight");
+
 
             var movieResponses =
                 _movieDbMapper.Map<MovieDbSerchResponseRootObject, MovieDbSearchViewModel>(
                     response.ResponseContent);
 
-            var viewModel = new MovieDbSearchViewModel
-            {
-                movieResults = movieResponses.movieResults
-            };
+            var result = movieResponses.movieResults.FirstOrDefault();
 
-            return View(viewModel);
+            return View(result);
         }
     }
 }

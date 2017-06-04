@@ -1,15 +1,11 @@
-﻿using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using web_app.Config;
 
-namespace web_app.Gateways.Responses
+namespace web_app.ViewModels
 {
-
-    public class MovieDbSerchResponse
+    public class MovieViewModel
     {
         public string poster_path { get; set; }
         public bool adult { get; set; }

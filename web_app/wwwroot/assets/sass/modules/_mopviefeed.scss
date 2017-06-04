@@ -2,7 +2,44 @@
     h1 {
         font-size: 35px;
     }
+
     .title {
         background-color: #01d277;
+    }
+
+    .movie-image {
+        background-color: $black;
+        background-size: cover;
+        background-position: 50% 10%;
+        transition: all .5s;
+        height: 550px;
+        color: white;
+        position: relative;
+
+        .movie-info-rating-block {
+            float: right;
+            padding-top: 10px;
+            font-weight: 700;
+        }
+
+        .movie-info {
+            background: rgba(0,0,0, 0.4);
+            position: absolute;
+            bottom: 0;
+            padding: 40px 0px;
+
+            .movie-overview {
+                span {
+                    font-size: 10px;
+                    color: $white;
+                }
+            }
+
+            .movie-title {
+                font-size: 35px;
+                color: $white;
+                font-weight: 700;
+            }
+        }
     }
 }

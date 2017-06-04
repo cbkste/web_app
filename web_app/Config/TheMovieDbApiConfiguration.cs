@@ -9,5 +9,7 @@ namespace web_app.Config
     {
         public string ApiBaseUrl { get; set; }
         public string ApiKey { get; set; }
+        public string ImageApiBaseUrl { get; set; }
+        public List<string> BackdropSizes { get; set; }
     }
 }

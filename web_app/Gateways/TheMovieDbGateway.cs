@@ -40,6 +40,7 @@ namespace web_app.Gateways
             {
                 return new Response<MovieDbSerchResponseRootObject>();
             }
+            var test = result.ResponseContent.results.FirstOrDefault();
 
             return result;
         }

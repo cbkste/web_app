@@ -13,6 +13,7 @@ using web_app.Config;
 using Microsoft.Extensions.Options;
 using web_app.Mappers;
 using AutoMapper;
+using web_app.Gateways.Responses;
 
 namespace web_app
 {
@@ -35,12 +36,12 @@ namespace web_app
         {
             services.Configure<TheMovieDbApiConfiguration>(Configuration.GetSection("moviedb"));
             services.Configure<TraktApiConfiguration>(Configuration.GetSection("trakt"));
-
+            services.Configure<UrlConfiguration>(Configuration.GetSection("UrlConfiguration"));
+            
             var configuration = ConfigureMapper();
             services.AddSingleton(configuration.CreateMapper());
 
             services.AddSingleton<IMovieDbMapper, MovieDbMapper>();
-
             services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(provider.GetService<IOptions<TraktApiConfiguration>>()));
             services.AddTransient<IHttpClientWrap>(provider => new HttpClientWrap());
             services.AddTransient<ITraktGateway>(provider => new TraktGateway(provider.GetService<IHttpClientWrapper>()));

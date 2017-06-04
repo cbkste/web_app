@@ -1,4 +1,4 @@
-﻿@model web_app.ViewModels.MovieDbSearchViewModel
+﻿@model web_app.Gateways.Responses.MovieDbSerchResponse
 
 
 @section UseFullContainerWidth { <!-- Use full width layout --> }
@@ -9,25 +9,48 @@
             <h1>Trakt Index</h1>
         </div>
     </div>
+    <div class="movie-image" style="background-image: url(@Html.Raw(Model.BackdropPathUrl));">
+        <div class="movie-info grid-100">
+            <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
+                <div class="grid-25">
+                    <span class="movie-title">@Model.title</span>
+                </div>
+                <div class="grid-60">
+                    <span class="movie-overview">@Model.overview</span>
+                </div>
+                <div class="grid-15">
+                    <span class="movie-title"></span>
+                </div>
+            </div>
+        </div>
+        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 movie-info-rating">
+            <div class="movie-info-rating-block">
+                <div class="movie-vote-average">
+                    <p>@Model.vote_average</p>
+                </div>
+                <div class="movie-vote-count">
+                    <p>@Model.vote_count.ToString("N0") Ratings</p>
+                </div>
+            </div>
+        </div>
     </div>
-        @if (Model.movieResults != null)
+</div>
+        @if (Model != null)
         {
-            @foreach (var movie in Model.movieResults)
-            {
                 <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 trakt">
                     <div class="row">
                         <div class="example-1 card">
                             <div class="wrapper">
                                 <div class="date">
-                                    <span class="day">@movie.release_date</span>
-                                    <span class="month">@movie.release_date</span>
-                                    <span class="year">@movie.release_date</span>
+                                    <span class="day">@Model.release_date</span>
+                                    <span class="month">@Model.release_date</span>
+                                    <span class="year">@Model.release_date</span>
                                 </div>
                                 <div class="data">
                                     <div class="content">
-                                        <span class="author">@movie.title</span>
-                                        <h1 class="title"><a href="#">@movie.original_title</a></h1>
-                                        <p class="text">@movie.overview</p>
+                                        <span class="author">@Model.title</span>
+                                        <h1 class="title"><a href="#">@Model.original_title</a></h1>
+                                        <p class="text">@Model.overview</p>
                                         <label for="show-menu" class="menu-button"><span></span></label>
                                     </div>
                                     <input type="checkbox" id="show-menu" />
@@ -35,15 +58,12 @@
                                         <li>
                                             <a href="#" class="fa fa-bookmark-o"></a>
                                         </li>
-                                        <li><a href="#" class="fa fa-heart-o"><span>@movie.vote_count</span></a></li>
-                                        <li><a href="#" class="fa fa-comment-o"><span>@movie.vote_average</span></a></li>
+                                        <li><a href="#" class="fa fa-heart-o"><span>@Model.vote_count</span></a></li>
+                                        <li><a href="#" class="fa fa-comment-o"><span>@Model.vote_average</span></a></li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
         }
-
-    </div>
