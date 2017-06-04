@@ -1,69 +1,18 @@
-﻿@model web_app.Gateways.Responses.MovieDbSerchResponse
+﻿@model web_app.ViewModels.SearchMovieViewModel
 
-
-@section UseFullContainerWidth { <!-- Use full width layout --> }
-
-<div class="movie-info-block">
-    <div class="grid-100 title">
-        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
-            <h1>Trakt Index</h1>
-        </div>
-    </div>
-    <div class="movie-image" style="background-image: url(@Html.Raw(Model.BackdropPathUrl));">
-        <div class="movie-info grid-100">
-            <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
-                <div class="grid-25">
-                    <span class="movie-title">@Model.title</span>
+<div class="grid-100">
+    <div class="information-capture">
+        <h1>Enter movie title</h1>
+        <div>
+            @using (Html.BeginForm("Details", "Trakt", FormMethod.Post))
+            {
+                <div class="form-section">
+                    @Html.LabelFor(_ => _.MovieTitle, "Enter movie title", new { id = "NameLabel", @class = "visually-hidden" })
+                    @Html.TextBoxFor(_ => _.MovieTitle, new { @class = "grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" })
+                    @Html.ValidationMessageFor(_ => _.MovieTitle, string.Empty, new { @class = "grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100" })
                 </div>
-                <div class="grid-60">
-                    <span class="movie-overview">@Model.overview</span>
-                </div>
-                <div class="grid-15">
-                    <span class="movie-title"></span>
-                </div>
-            </div>
-        </div>
-        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 movie-info-rating">
-            <div class="movie-info-rating-block">
-                <div class="movie-vote-average">
-                    <p>@Model.vote_average</p>
-                </div>
-                <div class="movie-vote-count">
-                    <p>@Model.vote_count.ToString("N0") Ratings</p>
-                </div>
-            </div>
+                <input type="submit" Value="Update" class="button button-outline button-partialrounded button-bold button-call-to-action" />
+            }
         </div>
     </div>
 </div>
-        @if (Model != null)
-        {
-                <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 trakt">
-                    <div class="row">
-                        <div class="example-1 card">
-                            <div class="wrapper">
-                                <div class="date">
-                                    <span class="day">@Model.release_date</span>
-                                    <span class="month">@Model.release_date</span>
-                                    <span class="year">@Model.release_date</span>
-                                </div>
-                                <div class="data">
-                                    <div class="content">
-                                        <span class="author">@Model.title</span>
-                                        <h1 class="title"><a href="#">@Model.original_title</a></h1>
-                                        <p class="text">@Model.overview</p>
-                                        <label for="show-menu" class="menu-button"><span></span></label>
-                                    </div>
-                                    <input type="checkbox" id="show-menu" />
-                                    <ul class="menu-content">
-                                        <li>
-                                            <a href="#" class="fa fa-bookmark-o"></a>
-                                        </li>
-                                        <li><a href="#" class="fa fa-heart-o"><span>@Model.vote_count</span></a></li>
-                                        <li><a href="#" class="fa fa-comment-o"><span>@Model.vote_average</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        }

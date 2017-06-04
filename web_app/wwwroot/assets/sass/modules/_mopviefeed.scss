@@ -28,6 +28,11 @@
             bottom: 0;
             padding: 40px 0px;
 
+            .movie-info-runtime {
+                float: right;
+                font-weight: 700;
+            }
+
             .movie-overview {
                 span {
                     font-size: 10px;
@@ -42,4 +47,8 @@
             }
         }
     }
+}
+
+.cast-block{
+    padding-bottom: 40px;
 }

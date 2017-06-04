@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using web_app.Mappers;
 using AutoMapper;
 using web_app.Gateways.Responses;
+using web_app.Services;
 
 namespace web_app
 {
@@ -47,6 +48,7 @@ namespace web_app
             services.AddTransient<ITraktGateway>(provider => new TraktGateway(provider.GetService<IHttpClientWrapper>()));
             services.AddTransient<IPreDbGateway>(provider => new PreDbGateway());
             services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrap>()));
+            services.AddTransient<ITheMovieDbService>(provider => new TheMovieDbService(provider.GetService<ITheMovieDbGateway>(), provider.GetService<IMovieDbMapper>()));
 
             // Add framework services.
             services.AddMvc();

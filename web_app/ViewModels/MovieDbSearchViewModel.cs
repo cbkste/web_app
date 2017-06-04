@@ -5,6 +5,7 @@ namespace web_app.ViewModels
 {
     public class MovieDbSearchViewModel
     {
-        public List<MovieDbSerchResponse> movieResults { get; set; }
+        public MovieViewModel movieResults { get; set; }
+        public CastAndCrew cast { get; set; }
     }
 }

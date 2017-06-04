@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using web_app.Config;
 using web_app.Gateways.Responses;
 using web_app.Helpers;
-
+using web_app.ViewModels;
 
 namespace web_app.Gateways
 {
@@ -26,10 +26,10 @@ namespace web_app.Gateways
             _httpClientWrap = httpClientWrap;
         }
 
-        public async Task<Response<MovieDbSerchResponseRootObject>> GetMovieInfo(string movie)
+        public async Task<Response<MovieDbSerchResponse>> SearchForMovie(string movie)
         {
             if (string.IsNullOrEmpty(movie))
-                return new Response<MovieDbSerchResponseRootObject>
+                return new Response<MovieDbSerchResponse>
                 {
                     Status = HttpStatusCode.BadRequest
                 };
@@ -40,12 +40,51 @@ namespace web_app.Gateways
 
             if (result.Status != HttpStatusCode.OK)
             {
-                return new Response<MovieDbSerchResponseRootObject>();
+                return new Response<MovieDbSerchResponse>();
             }
+
+            if (result.ResponseContent.results.Count == 0)
+            {
+                return new Response<MovieDbSerchResponse>();
+            }
+
             var test = result.ResponseContent.results.FirstOrDefault();
+            var testing = new Response<MovieDbSerchResponse>
+            {
+                ResponseContent = test
+            };
+
+            return testing;
+        }
+
+        public async Task<Response<CastAndCrew>> GetMovieCastAndCrew(int movieId)
+        {
+
+            var url = $"{_theMovieDb.Value.ApiBaseUrl}movie/{movieId}/credits?api_key={_theMovieDb.Value.ApiKey}";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var result = await _httpClientWrap.DoRequest<CastAndCrew>(request);
+
+            if (result.Status != HttpStatusCode.OK)
+            {
+                return new Response<CastAndCrew>();
+            }
 
             return result;
         }
 
+        public async Task<Response<MovieViewModel>> GetMovieInfo(int movieId)
+        {
+
+            var url = $"{_theMovieDb.Value.ApiBaseUrl}movie/{movieId}?api_key={_theMovieDb.Value.ApiKey}&language=en-US";
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            var result = await _httpClientWrap.DoRequest<MovieViewModel>(request);
+
+            if (result.Status != HttpStatusCode.OK)
+            {
+                return new Response<MovieViewModel>();
+            }
+
+            return result;
+        }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model web_app.ViewModels.MovieDbSearchViewModel
+
+
+@section UseFullContainerWidth { <!-- Use full width layout --> }
+
+@if (Model.movieResults != null)
+{
+<div class="movie-info-block">
+    <div class="grid-100 title">
+        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
+            <h1>Trakt Index</h1>
+        </div>
+    </div>
+    <div class="movie-image" style="background-image: url(@Html.Raw(Model.movieResults.BackdropPathUrl));">
+        <div class="movie-info grid-100">
+            <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
+                <div class="grid-25">
+                    <span class="movie-title">@Model.movieResults.title</span>
+                </div>
+                <div class="grid-60">
+                    <span class="movie-overview">@Model.movieResults.overview</span>
+                </div>
+                <div class="grid-15">
+                    <div class="movie-info-runtime">
+                        <p>@Model.movieResults.runtime runtime</p>
+                        <p>@Model.movieResults.original_language</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 movie-info-rating">
+            <div class="movie-info-rating-block">
+                <div class="movie-vote-average">
+                    <p>@Model.movieResults.vote_average</p>
+                </div>
+                <div class="movie-vote-count">
+                    <p>@Model.movieResults.vote_count.ToString("N0") Ratings</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid-100">
+    <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 trakt">
+        @foreach (var cast in Model.cast.cast)
+        {
+            <div class="grid-15 cast-block">
+                <p>@cast.order </p>
+                <p>@cast.cast_id </p>
+                <p>@cast.character </p>
+                <p>@cast.name</p>
+            </div>
+        }
+    </div>
+</div>
+}

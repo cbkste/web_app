@@ -12,10 +12,10 @@ namespace web_app.Config
             {
                 MapperConfiguration configuration = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<MovieDbSerchResponseRootObject, MovieDbSearchViewModel>()
-                       .ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src.results));
-
-                       cfg.CreateMissingTypeMaps = true;
+                    cfg.CreateMap<MovieDbSerchResponse, MovieDbSearchViewModel>()
+                       .ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src));
+                    //.ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src.results));
+                    cfg.CreateMissingTypeMaps = true;
                 });
                 return configuration;
             }
