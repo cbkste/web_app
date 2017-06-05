@@ -47,16 +47,20 @@ namespace web_app.Controllers
                 _movieDbMapper.Map<MovieDbSerchResponseRootObject, SeletionMovieViewModel>(
                 response.ResponseContent);
 
-            movieResponses = new SeletionMovieViewModel
-            {
-                movieResults = new List<MovieDbSerchResponse>
-                {
-                    new MovieDbSerchResponse
-                    {
-                        id = 155
-                    }
-                }
-            };
+            //hard code batman movie, for view testing
+            //movieResponses = new SeletionMovieViewModel
+            //{
+            //    movieResults = new List<MovieDbSerchResponse>
+            //    {
+            //        new MovieDbSerchResponse
+            //        {
+            //            id = 155
+            //        }
+            //    }
+            //};
+
+            if (movieResponses.movieResults.Count == 0)
+                return RedirectToAction("EmptySearch", new { searchTerm = search.MovieTitle });
 
             if (movieResponses.movieResults.Count != 1)
                 return View("Selection", movieResponses);
@@ -67,9 +71,10 @@ namespace web_app.Controllers
         }
 
         [HttpGet]
-        public IActionResult Selection()
+        public IActionResult EmptySearch(string searchTerm)
         {
-            return View();
+            var model = new EmptySearchViewModel { SearchTerm = searchTerm };
+            return View(model);
         }
     }
 }
