@@ -26,10 +26,10 @@ namespace web_app.Gateways
             _httpClientWrap = httpClientWrap;
         }
 
-        public async Task<Response<MovieDbSerchResponse>> SearchForMovie(string movie)
+        public async Task<Response<MovieDbSerchResponseRootObject>> SearchForMovie(string movie)
         {
             if (string.IsNullOrEmpty(movie))
-                return new Response<MovieDbSerchResponse>
+                return new Response<MovieDbSerchResponseRootObject>
                 {
                     Status = HttpStatusCode.BadRequest
                 };
@@ -40,21 +40,10 @@ namespace web_app.Gateways
 
             if (result.Status != HttpStatusCode.OK)
             {
-                return new Response<MovieDbSerchResponse>();
+                return new Response<MovieDbSerchResponseRootObject>();
             }
 
-            if (result.ResponseContent.results.Count == 0)
-            {
-                return new Response<MovieDbSerchResponse>();
-            }
-
-            var test = result.ResponseContent.results.FirstOrDefault();
-            var testing = new Response<MovieDbSerchResponse>
-            {
-                ResponseContent = test
-            };
-
-            return testing;
+            return result;
         }
 
         public async Task<Response<CastAndCrew>> GetMovieCastAndCrew(int movieId)

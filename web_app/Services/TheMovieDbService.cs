@@ -20,22 +20,15 @@ namespace web_app.Services
             _theMovieDbgateway = theMovieDbgateway;
         }
 
-        public async Task<MovieDbSearchViewModel> getSingleMovieInformation(string movie)
+        public async Task<MovieDbSearchViewModel> getSingleMovieInformation(int movieId)
         {
-            var response = await _theMovieDbgateway.SearchForMovie(movie);
-
-            if (response.ResponseContent == null)
-                return new MovieDbSearchViewModel();
-
-            var id = response.ResponseContent.id;
-
-            var movieInfo = await _theMovieDbgateway.GetMovieInfo(id);
-            var moveiCast = await _theMovieDbgateway.GetMovieCastAndCrew(id);
+            var movieInfo = await _theMovieDbgateway.GetMovieInfo(movieId);
+            var movieCast = await _theMovieDbgateway.GetMovieCastAndCrew(movieId);
 
             var movieData = new MovieDbSearchViewModel
             {
-                movieResults = movieInfo.ResponseContent,
-                cast = moveiCast.ResponseContent
+                cast = movieCast.ResponseContent,
+                movieResults = movieInfo.ResponseContent
             };
 
             return movieData;

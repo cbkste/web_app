@@ -1,0 +1,15 @@
+﻿@model web_app.ViewModels.SeletionMovieViewModel
+
+<div class="grid-100">
+<div class="information-capture">
+    <h1>Selection</h1>
+    <div>
+        @foreach (var movie in Model.movieResults)
+        {
+        <div class="grid-50">
+            <p>@movie.title</p>
+        </div>
+        }
+        </div>
+    </div>
+</div>

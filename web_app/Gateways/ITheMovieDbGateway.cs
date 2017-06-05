@@ -10,7 +10,7 @@ namespace web_app.Gateways
 {
     public interface ITheMovieDbGateway
     {
-        Task<Response<MovieDbSerchResponse>> SearchForMovie(string movie);
+        Task<Response<MovieDbSerchResponseRootObject>> SearchForMovie(string movie);
         Task<Response<CastAndCrew>> GetMovieCastAndCrew(int movieId);
         Task<Response<MovieViewModel>> GetMovieInfo(int movieId);
     }

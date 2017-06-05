@@ -15,6 +15,10 @@ namespace web_app.Config
                     cfg.CreateMap<MovieDbSerchResponse, MovieDbSearchViewModel>()
                        .ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src));
                     //.ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src.results));
+
+                    cfg.CreateMap<MovieDbSerchResponseRootObject, SeletionMovieViewModel>()
+                        .ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src.results));
+
                     cfg.CreateMissingTypeMaps = true;
                 });
                 return configuration;
