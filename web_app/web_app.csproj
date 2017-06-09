@@ -12,6 +12,7 @@
     <Content Include="wwwroot\assets\sass\modules\_mopviefeed.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="wwwroot\assets\sass\modules\_movieselection.scss" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />

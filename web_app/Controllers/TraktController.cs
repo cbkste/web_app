@@ -33,7 +33,7 @@ namespace web_app.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Details(SearchMovieViewModel search)
+        public async Task<IActionResult> Search(SearchMovieViewModel search)
         {
             if (!ModelState.IsValid)
             {
@@ -66,6 +66,19 @@ namespace web_app.Controllers
                 return View("Selection", movieResponses);
 
             var movieInfoResponse = await _movieDbService.getSingleMovieInformation(movieResponses.movieResults[0].id);
+
+            return View(movieInfoResponse);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int movieId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Index");
+            }
+
+            var movieInfoResponse = await _movieDbService.getSingleMovieInformation(movieId);
 
             return View(movieInfoResponse);
         }

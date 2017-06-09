@@ -4,7 +4,7 @@
     <div class="information-capture">
         <h1>Enter movie title</h1>
         <div>
-            @using (Html.BeginForm("Details", "Trakt", FormMethod.Post))
+            @using (Html.BeginForm("Search", "Trakt", FormMethod.Post))
             {
                 <div class="form-section">
                     @Html.LabelFor(_ => _.MovieTitle, "Enter movie title", new { id = "NameLabel", @class = "visually-hidden" })
