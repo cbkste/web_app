@@ -13,6 +13,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\assets\sass\modules\_movieselection.scss" />
+    <Content Include="wwwroot\assets\stylesheets\icons\font-awersome.min.css" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
@@ -32,6 +33,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Shared\Header.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\sass\stylesheets\" />
+    <Folder Include="wwwroot\assets\stylesheets\fonts\" />
   </ItemGroup>
 
 </Project>
