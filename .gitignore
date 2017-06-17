@@ -2,3 +2,4 @@ appsettings.Development.json
 bin/
 obj/
 .vs/
+web_app/node_modules/
