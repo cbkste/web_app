@@ -22,8 +22,8 @@
                 </div>
                 <div class="grid-15">
                     <div class="movie-info-runtime">
-                        <p>@Model.movieResults.runtime runtime</p>
-                        <p>@Model.movieResults.original_language</p>
+                        <p><i class="fa fa-clock-o"></i> @Model.movieResults.runtime</p>
+                        <p><i class="fa fa-language"></i> @Model.movieResults.original_language</p>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
         <div class="grid-50 prefix-25 suffix-25 mobile-grid-50 movie-info-rating">
             <div class="movie-info-rating-block">
                 <div class="movie-vote-average">
-                    <p>@Model.movieResults.vote_average</p>
+                    <p>@Model.movieResults.vote_average<i class="fa fa-star"></i></p>
                 </div>
                 <div class="movie-vote-count">
                     <p>@Model.movieResults.vote_count.ToString("N0") Ratings</p>
