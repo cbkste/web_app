@@ -4,8 +4,17 @@
 
 }
 
-<div class="grid-parent grid-100">
-    <h1>Selection</h1>
+@section UseFullContainerWidth { <!-- Use full width layout --> }
+
+
+<div class="grid-parent grid-100 movie-selection">
+    <div class="grid-100 title">
+        <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
+            <h1>Selection</h1>
+        </div>
+    </div>
+    <div class="grid-50 prefix-25 suffix-25 mobile-grid-50">
+        z
         @foreach (var movie in Model.movieResults)
         {
             count++;
@@ -15,7 +24,7 @@
                 @:<div class="grid-container">
              }
 
-            <div class="grid-30 cellphone-container">
+            <div class="grid-25 prefix-30 cellphone-container">
                 <div class="movie">
                     <img class="movie-img" src="@Html.Raw(movie.BackdropPathUrl)"></img>
                     <div class="text-movie-cont">
@@ -72,9 +81,11 @@
             if (count % 3 == 0)
             {
                 @:</div>
-             }
-}
+            }
+        }
+    </div>
 </div>
+
 
 
 
