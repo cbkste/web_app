@@ -4,3 +4,4 @@ obj/
 .vs/
 web_app/node_modules/
 web_app/app-config/appsettings.Development.json
+web_app/app-config/injected/
