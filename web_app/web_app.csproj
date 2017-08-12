@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\assets\sass\modules\_homepage.scss" />
     <Content Include="wwwroot\assets\sass\modules\_mopviefeed.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\sass\modules\_moviefeed - Copy.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\assets\sass\modules\_movieselection.scss" />
@@ -17,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.0.2" />
+    <PackageReference Include="contentful.csharp" Version="0.14.5-beta" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
@@ -35,6 +40,7 @@
     <None Include="Views\Shared\Header.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app-config\injected\" />
     <Folder Include="wwwroot\assets\sass\stylesheets\" />
     <Folder Include="wwwroot\assets\stylesheets\fonts\" />
   </ItemGroup>

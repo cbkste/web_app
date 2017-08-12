@@ -28,6 +28,7 @@
 <body>
 
     @Html.Partial("Header")
+    @RenderSection("BackgroundImage", false)
 @if (IsSectionDefined("UseFullContainerWidth"))
 {
     @RenderSection("UseFullContainerWidth", false)

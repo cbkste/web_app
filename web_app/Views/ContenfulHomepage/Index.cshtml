@@ -1,0 +1,19 @@
+﻿@model web_app.Model.Homepage
+@using web_app.ViewModels
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Title</h1>
+
+@section BackgroundImage
+{
+    @Html.Partial("ScaleImageByDevice", new Image("homepage-image", Model.BackgroundImage))
+}
+
+@foreach (var news in @Model.FeaturedNews)
+{
+    <h2>@news.Title</h2>
+    <p>@news.Description</p>
+}

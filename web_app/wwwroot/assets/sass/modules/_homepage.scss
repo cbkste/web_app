@@ -1,0 +1,18 @@
+.homepage-image {
+    padding: 0px 10px 0px 10px;
+
+    background: #ff6a00 no-repeat scroll center center;
+    background-size: cover;
+
+    background-attachment: fixed;
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+ CSS styles go here */
+        background-attachment: scroll;
+    }
+
+    @supports (-ms-accelerator:true) {
+        /* IE Edge 12+ CSS styles go here */
+        background-attachment: scroll;
+    }
+}

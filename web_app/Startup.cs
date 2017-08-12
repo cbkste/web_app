@@ -15,6 +15,11 @@ using web_app.Mappers;
 using AutoMapper;
 using web_app.Gateways.Responses;
 using web_app.Services;
+using web_app.Client;
+using web_app.Repository;
+using web_app.ContentfulFactories;
+using web_app.ContentfulModels;
+using web_app.Model;
 
 namespace web_app
 {
@@ -24,8 +29,8 @@ namespace web_app
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("app-config/appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"app-config/appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -38,7 +43,8 @@ namespace web_app
             services.Configure<TheMovieDbApiConfiguration>(Configuration.GetSection("moviedb"));
             services.Configure<TraktApiConfiguration>(Configuration.GetSection("trakt"));
             services.Configure<UrlConfiguration>(Configuration.GetSection("UrlConfiguration"));
-            
+            services.Configure<ContenfulClientConfiguration>(Configuration.GetSection("ContentfulApi"));
+
             var configuration = ConfigureMapper();
             services.AddSingleton(configuration.CreateMapper());
 
@@ -49,6 +55,12 @@ namespace web_app
             services.AddTransient<IPreDbGateway>(provider => new PreDbGateway());
             services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrap>()));
             services.AddTransient<ITheMovieDbService>(provider => new TheMovieDbService(provider.GetService<ITheMovieDbGateway>(), provider.GetService<IMovieDbMapper>()));
+            services.AddTransient<HomepageRepository>();
+            services.AddSingleton<IContentfulFactory<ContentfulFeaturedNews, News>>(new FeaturedNewsFactory());
+
+
+            services.AddSingleton<IContentfulFactory<ContentfulHomepage, Homepage>>(provider => new HomepageContentfulFactory(provider.GetService<IContentfulFactory<ContentfulFeaturedNews, News>>()));
+            services.AddSingleton<IContentfulClientManager>(new ContentfulClientManager(new System.Net.Http.HttpClient()));
 
             // Add framework services.
             services.AddMvc();
