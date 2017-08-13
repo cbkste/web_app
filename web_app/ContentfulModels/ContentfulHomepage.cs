@@ -10,6 +10,7 @@ namespace web_app.ContentfulModels
         public Asset BackgroundImage { get; set; } = new Asset();
         public string Title { get; set; } = string.Empty;
         public IEnumerable<ContentfulFeaturedNews> HiglightedNews { get; set; } = new List<ContentfulFeaturedNews>();
+        public IEnumerable<ContenfulCarousel> Carousel { get; set; } = new List<ContenfulCarousel>();
         public SystemProperties Sys { get; set; } = new SystemProperties();
     }
 }

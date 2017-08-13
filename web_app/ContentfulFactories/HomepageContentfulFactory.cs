@@ -10,10 +10,12 @@ namespace web_app.ContentfulFactories
     public class HomepageContentfulFactory : IContentfulFactory<ContentfulHomepage, Homepage>
     {
         private readonly IContentfulFactory<ContentfulFeaturedNews, News> _featuredNewsFactory;
+        private readonly IContentfulFactory<ContenfulCarousel, Carousel> _carouselFactory;
 
-        public HomepageContentfulFactory(IContentfulFactory<ContentfulFeaturedNews, News> featuredNewsFactory)
+        public HomepageContentfulFactory(IContentfulFactory<ContentfulFeaturedNews, News> featuredNewsFactory, IContentfulFactory<ContenfulCarousel, Carousel> carouselFactory)
         {
             _featuredNewsFactory = featuredNewsFactory;
+            _carouselFactory = carouselFactory;
         }
 
         public Homepage ToModel(ContentfulHomepage entry)
@@ -25,7 +27,12 @@ namespace web_app.ContentfulFactories
                  entry.HiglightedNews
                     .Select(item => _featuredNewsFactory.ToModel(item)).ToList();
 
-            return new Homepage(backgroundImage, title, featuredNewsItem);
+            var carousel =
+                entry.Carousel
+                    .Select(c => _carouselFactory.ToModel(c)).ToList();
+
+
+            return new Homepage(backgroundImage, title, featuredNewsItem, carousel);
         }
     }
 }

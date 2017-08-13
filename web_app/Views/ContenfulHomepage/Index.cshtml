@@ -1,19 +1,72 @@
 ﻿@model web_app.Model.Homepage
 @using web_app.ViewModels
 
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["url"] = $"https:{Model.BackgroundImage}";
 }
-
-<h1>@Model.Title</h1>
+<div class="grid-100">
 
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("homepage-image", Model.BackgroundImage))
+    @*@Html.Partial("ScaleImageByDevice", new Image("homepage-image", @Model.BackgroundImage))*@
+    <div class="homepage-image" style="background-image: url(@ViewData["url"])">
+        <h1>@Model.Title</h1>
+    </div>
 }
-
 @foreach (var news in @Model.FeaturedNews)
 {
     <h2>@news.Title</h2>
     <p>@news.Description</p>
 }
+
+@section CarouselBackgroundImage
+{
+    <div class="grid-100 your-class">
+        <div class='single-item'>
+            @foreach (var carouselContent in Model.Carousel)
+            {
+                <div style="background-image: url(@carouselContent.Image)">
+                    <h3>@carouselContent.Title</h3>
+                    <p>@carouselContent.Text</p>
+                </div>
+            }
+        </div>
+    </div>
+}
+
+</div>
+
+<style>
+    .your-class {
+        margin: 0 auto;
+        padding: 0px;
+        color: #333;
+        background: #419be0;
+    }
+
+    .slick-slide {
+        text-align: center;
+        color: #419be0;
+        background: white;
+        height: 400px;
+        background: #8f2d56 no-repeat scroll center center;
+        background-size: cover;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('.single-item').slick({
+            dots: true,
+            infinite: true,
+            speed: 1500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            arrows: false,
+        });
+    });
+</script>

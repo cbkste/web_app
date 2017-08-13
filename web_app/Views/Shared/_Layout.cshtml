@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="~/slick/slick.min.js"></script>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - web_app</title>
@@ -21,6 +26,10 @@
 
     <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" />
 
+
+    <link rel="stylesheet" type="text/css" href="slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css" />
+
     <!--[FontAwesome Icons]-->
     <link rel="stylesheet" href="~/assets/stylesheets/icons/font-awersome.min.css">
     @Html.Raw(JavaScriptSnippet.FullScript)
@@ -29,6 +38,8 @@
 
     @Html.Partial("Header")
     @RenderSection("BackgroundImage", false)
+    @RenderSection("CarouselBackgroundImage", false)
+
 @if (IsSectionDefined("UseFullContainerWidth"))
 {
     @RenderSection("UseFullContainerWidth", false)
@@ -46,7 +57,6 @@ else
 @Html.Partial("Footer")
 
     <environment names="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
@@ -65,6 +75,7 @@ else
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
 
     @RenderSection("Scripts", required: false)
 </body>

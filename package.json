@@ -1,0 +1,23 @@
+{
+  "name": "web_app",
+  "version": "1.0.0",
+  "description": "Web App Packages",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbkste/web_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cbkste/web_app/issues"
+  },
+  "homepage": "https://github.com/cbkste/web_app#readme"
+}
