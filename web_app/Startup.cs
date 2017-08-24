@@ -44,22 +44,27 @@ namespace web_app
             services.Configure<TraktApiConfiguration>(Configuration.GetSection("trakt"));
             services.Configure<UrlConfiguration>(Configuration.GetSection("UrlConfiguration"));
             services.Configure<ContenfulClientConfiguration>(Configuration.GetSection("ContentfulApi"));
+            services.Configure<TwitchApiConfiguration>(Configuration.GetSection("twitch"));
+
 
             var configuration = ConfigureMapper();
             services.AddSingleton(configuration.CreateMapper());
 
             services.AddSingleton<IMovieDbMapper, MovieDbMapper>();
+
             services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(provider.GetService<IOptions<TraktApiConfiguration>>()));
-            services.AddTransient<IHttpClientWrap>(provider => new HttpClientWrap());
+            services.AddTransient<IHttpClientWrapperTwitch>(provider => new HttpClientWrapperTwitch(provider.GetService<IOptions<TwitchApiConfiguration>>()));
+
             services.AddTransient<ITraktGateway>(provider => new TraktGateway(provider.GetService<IHttpClientWrapper>()));
             services.AddTransient<IPreDbGateway>(provider => new PreDbGateway());
-            services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrap>()));
-            services.AddTransient<ITheMovieDbService>(provider => new TheMovieDbService(provider.GetService<ITheMovieDbGateway>(), provider.GetService<IMovieDbMapper>()));
+            services.AddTransient<ITwitchGateway>(provider => new TwitchGateway(provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrapperTwitch>()));
+            services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrapper>()));
+
+            services.AddTransient<ITheMovieDbService>(provider => new TheMovieDbService(provider.GetService<ITheMovieDbGateway>()));
             services.AddTransient<HomepageRepository>();
 
             services.AddSingleton<IContentfulFactory<ContentfulFeaturedNews, News>>(new FeaturedNewsFactory());
             services.AddSingleton<IContentfulFactory<ContenfulCarousel, Carousel>>(new CarouselFactory());
-
 
             services.AddSingleton<IContentfulFactory<ContentfulHomepage, Homepage>>(provider => new HomepageContentfulFactory(provider.GetService<IContentfulFactory<ContentfulFeaturedNews, News>>(), provider.GetService<IContentfulFactory<ContenfulCarousel, Carousel>>()));
             services.AddSingleton<IContentfulClientManager>(new ContentfulClientManager(new System.Net.Http.HttpClient()));

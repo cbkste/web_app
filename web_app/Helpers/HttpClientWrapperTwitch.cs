@@ -6,19 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Options;
+using web_app.Config;
 
 namespace web_app.Helpers
 {
-    public class HttpClientWrap : IHttpClientWrapper
+    public class HttpClientWrapperTwitch : IHttpClientWrapperTwitch
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<HttpClientWrapper> _logger;
+        private readonly IOptions<TwitchApiConfiguration> _twitch;
 
-        public HttpClientWrap()
+        public HttpClientWrapperTwitch(IOptions<TwitchApiConfiguration> twitch)
         {
+            _twitch = twitch;
             _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
 
-            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/vnd.twitchtv.v5+json"));
+            _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Client-ID", $"{ _twitch.Value.ClientId}");
+            _httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Accept", $"application/vnd.twitchtv.v5+json");
         }
 
         public void ChangeAuthenticationHeader(string authHeader)

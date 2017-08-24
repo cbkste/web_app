@@ -17,9 +17,9 @@ namespace web_app.Gateways
     {
         private readonly IOptions<TheMovieDbApiConfiguration> _theMovieDb;
         private readonly IOptions<UrlConfiguration> _urlConfig;
-        private readonly IHttpClientWrap _httpClientWrap;
+        private readonly IHttpClientWrapper _httpClientWrap;
 
-        public TheMovieDbGateway(IOptions<TheMovieDbApiConfiguration> theMovieDb, IOptions<UrlConfiguration> urlCOnfig, IHttpClientWrap httpClientWrap)
+        public TheMovieDbGateway(IOptions<TheMovieDbApiConfiguration> theMovieDb, IOptions<UrlConfiguration> urlCOnfig, IHttpClientWrapper httpClientWrap)
         {
             _theMovieDb = theMovieDb;
             _urlConfig = urlCOnfig;

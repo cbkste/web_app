@@ -1,0 +1,25 @@
+@model web_app.ViewModels.TwitchTopClipsForGameViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+@foreach (var clip in Model.Clips)
+{
+        <p>clip.broadcaster</p>
+        <p>@clip.broadcast_id</p>
+        <p>@clip.created_at</p>
+        <p>@clip.curator </p>
+        <p>@clip.duration </p>
+        <p>@clip.embed_html </p>
+        <p>@clip.embed_url </p>
+        <p>@clip.game </p>
+        <p>@clip.language </p>
+        <p>@clip.title </p>
+        <p>@clip.tracking_id </p>
+        <p>@clip.url </p>
+        <p>@clip.views </p>
+        <p>@clip.vod </p>
+}

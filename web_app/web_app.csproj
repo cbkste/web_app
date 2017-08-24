@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app-config\injected\" />
+    <Folder Include="Views\Twitch\" />
     <Folder Include="wwwroot\assets\sass\stylesheets\" />
     <Folder Include="wwwroot\assets\stylesheets\fonts\" />
   </ItemGroup>

@@ -13,9 +13,8 @@ namespace web_app.Services
     public class TheMovieDbService : ITheMovieDbService
     {
         private readonly ITheMovieDbGateway _theMovieDbgateway;
-        private readonly IMovieDbMapper _movieDbMapper;
 
-        public TheMovieDbService(ITheMovieDbGateway theMovieDbgateway, IMovieDbMapper movieMapper)
+        public TheMovieDbService(ITheMovieDbGateway theMovieDbgateway)
         {
             _theMovieDbgateway = theMovieDbgateway;
         }

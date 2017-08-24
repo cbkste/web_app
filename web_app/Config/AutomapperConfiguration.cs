@@ -19,6 +19,9 @@ namespace web_app.Config
                     cfg.CreateMap<MovieDbSerchResponseRootObject, SeletionMovieViewModel>()
                         .ForMember(dest => dest.movieResults, opt => opt.MapFrom(src => src.results));
 
+                    cfg.CreateMap<MovieDbSerchResponseRootObject, TwitchTopClipsForGameViewModel>()
+                        .ForMember(dest => dest.Clips, opt => opt.MapFrom(src => src.results));
+
                     cfg.CreateMissingTypeMaps = true;
                 });
                 return configuration;
