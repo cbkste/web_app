@@ -8,7 +8,7 @@ web_app/app-config/injected/
 node_modules/
 docker-compose.ci.build.yml
 docker-compose.dcproj
-docker-compose.override
+docker-compose.override.yml
 docker-compose.vs.debug.yml
 docker-compose.vs.release.yml
 docker-compose.yml
