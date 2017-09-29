@@ -6,3 +6,10 @@ web_app/node_modules/
 web_app/app-config/appsettings.Development.json
 web_app/app-config/injected/
 node_modules/
+docker-compose.ci.build.yml
+docker-compose.dcproj
+docker-compose.override
+docker-compose.vs.debug.yml
+docker-compose.vs.release.yml
+docker-compose.yml
+web_app/.dockerignore
