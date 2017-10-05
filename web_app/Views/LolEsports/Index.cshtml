@@ -1,0 +1,30 @@
+﻿@model web_app.ViewModels.LolEsportsTeamViewModel
+
+<div class="grid-100">
+    <div class="information-capture">
+        <h1>Team Info</h1>
+
+        <div>
+            @foreach (var player in Model.Players)
+            {
+                <h1>@player.Name</h1>
+                <p>@player.Id</p>
+                <p>@player.Region</p>
+                <p>@player.RoleSlug</p>
+                <p>@player.SocialNetworks.Facebook</p>
+                <p>@player.FirstName</p>
+
+            }
+        </div>
+
+        <div>
+            @foreach (var team in Model.Teams)
+            {
+                <h1>@team.Name</h1>
+                <p>@team.Id</p>
+                <p>@team.TeamPhotoUrl</p>
+                <p>@team.HomeLeague</p>
+            }
+        </div>
+    </div>
+</div>

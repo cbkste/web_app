@@ -12,12 +12,12 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 <li>@Html.ActionLink("Feed", "Index", "Feed")</li>
                 <li>@Html.ActionLink("Trakt", "Index", "Trakt")</li>
                 <li>@Html.ActionLink("Contenful Homepage", "Index", "ContenfulHomepage")</li>
                 <li>@Html.ActionLink("Twitch", "Index", "Twitch")</li>
+                <li>@Html.ActionLink("Db", "Index", "LocalDb")</li>
+                <li>@Html.ActionLink("Lol Esports Team", "Index", "LolEsports")</li>
             </ul>
         </div>
     </div>

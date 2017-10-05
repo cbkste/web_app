@@ -20,6 +20,10 @@ using web_app.Repository;
 using web_app.ContentfulFactories;
 using web_app.ContentfulModels;
 using web_app.Model;
+using Microsoft.EntityFrameworkCore;
+using web_app.LolEsportsModels;
+using web_app.ILolEsportsFactory;
+using web_app.LolEsportsFactories;
 
 namespace web_app
 {
@@ -32,6 +36,7 @@ namespace web_app
                 .AddJsonFile("app-config/appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"app-config/appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
@@ -45,29 +50,38 @@ namespace web_app
             services.Configure<UrlConfiguration>(Configuration.GetSection("UrlConfiguration"));
             services.Configure<ContenfulClientConfiguration>(Configuration.GetSection("ContentfulApi"));
             services.Configure<TwitchApiConfiguration>(Configuration.GetSection("twitch"));
+            services.Configure<TwitchApiConfiguration>(Configuration.GetSection("localDb"));
+            services.Configure<LolEsportsApiConfiguration>(Configuration.GetSection("lolesportsUrlConfiguration"));
 
+            services.AddSingleton<IContentfulFactory<ContentfulFeaturedNews, News>>(new FeaturedNewsFactory());
+            services.AddSingleton<IContentfulFactory<ContenfulCarousel, Carousel>>(new CarouselFactory());
+            services.AddSingleton<ILolEsportsFactory<LolEsportsTeam, Team>>(new TeamLolEsportsFactory());
 
             var configuration = ConfigureMapper();
             services.AddSingleton(configuration.CreateMapper());
 
             services.AddSingleton<IMovieDbMapper, MovieDbMapper>();
 
+            services.AddTransient<IHttpClientWrap>(provider => new HttpClientWrap(provider.GetService<ILogger<HttpClientWrapper>>()));
             services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(provider.GetService<IOptions<TraktApiConfiguration>>()));
             services.AddTransient<IHttpClientWrapperTwitch>(provider => new HttpClientWrapperTwitch(provider.GetService<IOptions<TwitchApiConfiguration>>()));
 
             services.AddTransient<ITraktGateway>(provider => new TraktGateway(provider.GetService<IHttpClientWrapper>()));
             services.AddTransient<IPreDbGateway>(provider => new PreDbGateway());
+            services.AddTransient<ILolEsportsGateway>(provider => new LolEsportsGateway(provider.GetService<IOptions<LolEsportsApiConfiguration>>(), provider.GetService<IHttpClientWrap>(), provider.GetService<ILolEsportsFactory<LolEsportsTeam, Team>>()));
             services.AddTransient<ITwitchGateway>(provider => new TwitchGateway(provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrapperTwitch>()));
             services.AddTransient<ITheMovieDbGateway>(provider => new TheMovieDbGateway(provider.GetService<IOptions<TheMovieDbApiConfiguration>>(), provider.GetService<IOptions<UrlConfiguration>>(), provider.GetService<IHttpClientWrapper>()));
 
             services.AddTransient<ITheMovieDbService>(provider => new TheMovieDbService(provider.GetService<ITheMovieDbGateway>()));
             services.AddTransient<HomepageRepository>();
 
-            services.AddSingleton<IContentfulFactory<ContentfulFeaturedNews, News>>(new FeaturedNewsFactory());
-            services.AddSingleton<IContentfulFactory<ContenfulCarousel, Carousel>>(new CarouselFactory());
 
             services.AddSingleton<IContentfulFactory<ContentfulHomepage, Homepage>>(provider => new HomepageContentfulFactory(provider.GetService<IContentfulFactory<ContentfulFeaturedNews, News>>(), provider.GetService<IContentfulFactory<ContenfulCarousel, Carousel>>()));
             services.AddSingleton<IContentfulClientManager>(new ContentfulClientManager(new System.Net.Http.HttpClient()));
+
+            services.AddSingleton<IConnectionHelper, ConnectionHelper>();
+
+            services.AddTransient<ILocalDbRepository>(p => new LocalDbRepository(p.GetService<IDbConnectionProvider>()));
 
             // Add framework services.
             services.AddMvc();
@@ -90,7 +104,6 @@ namespace web_app
             }
 
             app.UseStaticFiles();
-
 
             app.UseMvc(routes =>
             {

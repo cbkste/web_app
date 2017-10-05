@@ -9,15 +9,15 @@ using Microsoft.Extensions.Options;
 
 namespace web_app.Helpers
 {
-    public class HttpClientWrap : IHttpClientWrapper
+    public class HttpClientWrap : IHttpClientWrap
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<HttpClientWrapper> _logger;
 
-        public HttpClientWrap()
+        public HttpClientWrap(ILogger<HttpClientWrapper> logger)
         {
             _httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(60) };
-
+            _logger = logger;
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
